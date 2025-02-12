@@ -1,3 +1,5 @@
+// tailwind.Config.ts
+
 import type { Config } from "tailwindcss";
 
 export default {
