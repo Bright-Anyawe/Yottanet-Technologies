@@ -11,6 +11,7 @@ import {
   AcademicCapIcon,
   LightBulbIcon,  
 } from "@heroicons/react/24/outline";
+import Footer from "@/app/components/footer";
 
 
 
@@ -148,6 +149,7 @@ const About = () => {
   </div>
 </section>
 
+      <Footer />
     </>
   );
 };
