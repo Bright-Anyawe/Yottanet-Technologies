@@ -15,7 +15,7 @@ const links = [
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "About", href: "/pages/about", icon: UserIcon },
   { name: "Services", href: "/pages/services", icon: BriefcaseIcon },
-  { name: "Shop", href: "/pages/shop", icon: BriefcaseIcon },
+  // { name: "Shop", href: "/pages/shop", icon: BriefcaseIcon },
   { name: "Contact", href: "/pages/contact", icon: PhoneIcon },
 ];
 
