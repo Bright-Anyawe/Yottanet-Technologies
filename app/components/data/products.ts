@@ -1,5 +1,5 @@
 
-export const products = [
+ const products = [
     {
       id: 1,
       title: "Premium Wireless Headphones",
@@ -57,3 +57,6 @@ export const products = [
       category: "Accessories",
     }
   ];
+
+
+  export default products;

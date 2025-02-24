@@ -4,7 +4,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/app/components/header";
-import TechProductSales from "@/app/components/techProject";
+// import TechProductSales from "@/app/components/techProject";
+import Shop from "@/app/shop/page";
 import MtnProducts from "@/app/components/mtnService";
 import Testimonial from "@/app/components/testimonial";
 import FAQ from "@/app/components/faq";
@@ -94,7 +95,7 @@ const ServicePage = () => {
       </section>
 
       <section>
-        <TechProductSales />
+        <Shop />
       </section>
       <section>
         <MtnProducts/>

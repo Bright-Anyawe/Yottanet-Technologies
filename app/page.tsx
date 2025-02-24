@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
 import Header from "./components/header";
-import ProductCards from "./components/productCards";
 import Team from "./components/teamCards";
 import Carousel from "./components/carousel";
 import Footer from "./components/footer";
 import HeroSection from "./components/heroSection";
 import { useInView } from "./components/UseInView";
+import ProductCard from "./components/sampleProducts";
 
 export default function Home() {
   const [productsRef, productsInView] = useInView();
@@ -37,7 +37,7 @@ export default function Home() {
           <p className="text-lg text-gray-600 text-center max-w-3xl">
             Check out our latest products designed to meet your needs.
           </p>
-          <ProductCards />
+          <ProductCard />
         </section>
 
         <section
