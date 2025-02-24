@@ -95,31 +95,7 @@ const Testimonials = () => {
       </section>
 
       {}
-      <section className="py-16 px-4 md:px-20 bg-white">
-        <h2 className="text-4xl font-bold text-gray-800 text-center mb-12">
-          Client Revenues & Success Stories
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {clientRevenues.map((client, index) => (
-            <div
-              key={index}
-              className="bg-gray-100 rounded-lg shadow-md p-6 text-center"
-            >
-              <h3 className="text-2xl font-bold text-gray-800">
-                {client.client}
-              </h3>
-              <p className="text-4xl font-bold text-green-600">
-                {client.revenue}
-              </p>
-              <p className="text-gray-600">Annual Revenue</p>
-              <p className="text-lg font-semibold text-blue-600 mt-2">
-                Growth: {client.growth}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+     
     </>
   );
 };

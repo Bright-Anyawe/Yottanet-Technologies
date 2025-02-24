@@ -1,78 +1,90 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
+
+const heroSlides = [
+  {
+    title: "Your One-Stop Tech Solution",
+    subtitle: "Premium tech products and professional network services",
+    bgColor: "from-blue-600 to-blue-800",
+  },
+  {
+    title: "Professional Starlink Installation",
+    subtitle: "Expert setup and configuration services",
+    bgColor: "from-indigo-600 to-indigo-800",
+  },
+  {
+    title: "Network Solutions",
+    subtitle: "Complete networking infrastructure for your business",
+    bgColor: "from-purple-600 to-purple-800",
+  },
+];
 
 const HeroSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative w-full h-screen flex items-center justify-center bg-gray-900">
-      {}
-      <div className="absolute inset-0 w-full h-full">
-      <Image
-  src="/assets/images/hero-image.png"
-  alt="PachiPanda Challenge"
-  fill
-  style={{ objectFit: "cover" }}
-  priority
-/>
-
-        <div className="absolute inset-0 bg-black opacity-30"></div>
-      </div>
-
-      {}
-      <div className="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-between px-6 lg:px-16">
-        {}
-        <motion.div
-          className="text-white max-w-lg text-left"
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <h1 className="text-4xl md:text-6xl font-bold">
-            <span className="text-yellow-400">PachiPanda</span> Challenge
-          </h1>
-          <p className="mt-4 text-lg">
-            Empowering Africa’s young eco-preneurs
-          </p>
-          <Button
-            variant="contained"
-            color="warning"
-            className="mt-6 bg-yellow-500 hover:bg-yellow-600 text-black font-bold"
+    <section>
+      <div className="relative h-[600px] overflow-hidden">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 bg-gradient-to-r ${
+              slide.bgColor
+            } 
+                ${index === currentSlide ? "opacity-100" : "opacity-0"}`}
           >
-            Read More
-          </Button>
-        </motion.div>
-
-        {}
-        <motion.div
-          className="mt-8 md:mt-0"
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <div className="bg-white px-6 py-2 rounded-lg flex items-center shadow-lg">
-            <Image
-              src="/assets/images/pachipanda-logo.png" // Update this with actual logo path
-              alt="PachiPanda Logo"
-              width={100}
-              height={50}
-            />
-            <span className="text-3xl font-bold text-gray-800 mx-4">|</span>
-            <Image
-              src="/assets/images/mtn-logo.png" // Update this with actual logo path
-              alt="MTN Logo"
-              width={100}
-              height={50}
-            />
+            <div className="container mx-auto px-6 h-full flex items-center">
+              <div
+                className={`max-w-2xl transition-transform duration-1000 transform 
+                  ${
+                    index === currentSlide
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-full opacity-0"
+                  }`}
+              >
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+                  {slide.title}
+                </h1>
+                <p className="text-xl md:text-2xl mb-8 text-white/90">
+                  {slide.subtitle}
+                </p>
+                <a
+                  href="#contact"
+                  className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-block"
+                >
+                  Get Started
+                </a>
+              </div>
+            </div>
           </div>
-        </motion.div>
-      </div>
+        ))}
 
-      {}
-      <div className="absolute bottom-10 flex space-x-2">
-        <span className="w-3 h-3 bg-gray-400 rounded-full"></span>
-        <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
-        <span className="w-3 h-3 bg-gray-400 rounded-full"></span>
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 
+                  ${
+                    index === currentSlide
+                      ? "bg-white scale-125"
+                      : "bg-white/50 hover:bg-white/75"
+                  }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
