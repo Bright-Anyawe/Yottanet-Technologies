@@ -7,13 +7,10 @@ export default function CheckoutForm() {
   const searchParams = useSearchParams();
   const params = useParams();
 
-  // Extract query params from the URL
   const rawQuantity = searchParams.get("quantity") || "1";
   const rawCost = searchParams.get("cost") || "0";
   const quantity = parseInt(rawQuantity, 10);
   const totalCost = parseFloat(rawCost);
-
-  // We also have the product ID from the route
   const productId = params.id;
 
   // Local state for user input
@@ -21,34 +18,55 @@ export default function CheckoutForm() {
   const [location, setLocation] = useState("");
   const [mobile, setMobile] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Right now, it just logs the data
-    console.log("Form submitted:", {
+    // Gather the form + product data
+    const formData = {
       email,
       location,
       mobile,
       quantity,
       totalCost,
       productId,
-    });
+    };
 
-    // You can show a success message or navigate away
-    alert("Order submitted! Check console for details.");
+    try {
+      // POST to our API route
+      const response = await fetch("/api/sendOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Order submitted successfully! We’ll be in touch soon.");
+        // Optionally, clear the form or navigate somewhere
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to send order."}`);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      alert("Request failed. Check the console for details.");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white py-16 px-4">
-      <div className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Checkout</h1>
-        <p className="mb-2">Product ID: {productId}</p>
-        <p className="mb-2">Quantity: {quantity}</p>
-        <p className="mb-6">Total Cost: ${totalCost.toFixed(2)}</p>
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 py-16 px-4">
+      <div className="container mx-auto bg-white p-8 rounded-lg shadow-lg max-w-md">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Checkout</h1>
 
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
-          <div>
-            <label htmlFor="email" className="block mb-1 font-medium">
+        <div className="mb-6 text-center">
+          <p className="mb-2 text-gray-700">Product ID: {productId}</p>
+          <p className="mb-2 text-gray-700">Quantity: {quantity}</p>
+          <p className="text-gray-700">Total Cost: ${totalCost.toFixed(2)}</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {}
+          <div className="transition-transform transform hover:scale-105 duration-300">
+            <label htmlFor="email" className="block mb-2 font-medium text-gray-700">
               Email
             </label>
             <input
@@ -57,12 +75,13 @@ export default function CheckoutForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border p-2 rounded w-full"
+              className="border border-gray-300 p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <div>
-            <label htmlFor="location" className="block mb-1 font-medium">
+          {}
+          <div className="transition-transform transform hover:scale-105 duration-300">
+            <label htmlFor="location" className="block mb-2 font-medium text-gray-700">
               Location
             </label>
             <input
@@ -71,12 +90,13 @@ export default function CheckoutForm() {
               required
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="border p-2 rounded w-full"
+              className="border border-gray-300 p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <div>
-            <label htmlFor="mobile" className="block mb-1 font-medium">
+          {}
+          <div className="transition-transform transform hover:scale-105 duration-300">
+            <label htmlFor="mobile" className="block mb-2 font-medium text-gray-700">
               Mobile Number
             </label>
             <input
@@ -85,13 +105,14 @@ export default function CheckoutForm() {
               required
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
-              className="border p-2 rounded w-full"
+              className="border border-gray-300 p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
+          {}
           <button
             type="submit"
-            className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition-colors"
+            className="bg-blue-600 text-white py-3 px-6 rounded-full hover:bg-blue-700 transition-colors duration-300 w-full"
           >
             Submit
           </button>
